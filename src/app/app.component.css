@@ -1,0 +1,62 @@
+h1 {
+  font-weight: 900;
+  font-size: 1em;
+  text-transform: uppercase;
+  margin: 0px 0px 24px 24px;
+  padding-top: 24px;
+}
+
+button {
+  float: right;
+  margin-left: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center; 
+}
+
+h1 span {
+  padding-left: 16px;
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+.output-container {
+  position: relative;
+  margin-top: 64px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 400;
+  text-align: left;
+  height: 20px;
+}
+
+footer p {
+  padding: 16px;
+  margin: 0px;
+}
+
+/* 0.75rem(12px) @ 20rem(320px) increasing to 1rem(16px) @ 120rem(1920px) */
+@media (min-width: 20rem) {
+  footer p  {
+    font-size: calc(0.75rem + ((1vw - 0.2rem) * 0.25));
+    /* Where: * 0.25 = 100 * font_Size_Difference / viewport_Width_Difference */
+  }
+}
+/* Prevent font scaling beyond this breakpoint */
+@media (min-width: 120rem) {
+  footer p  {
+    font-size: 1rem;
+  }
+}

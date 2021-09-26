@@ -1,0 +1,60 @@
+.selector {
+  position: relative;
+  margin-top: -1%;
+}
+
+span {
+  position: relative;
+  border: 1px solid rgb(255, 255, 255);
+  font-weight: 700;
+  font-size: 14px;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+  padding: 6px 12px;
+}
+
+span:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.56);
+}
+
+label:first-child span {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+label:last-child span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+label:focus {
+  outline: none;
+}
+
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+input[type="radio"]:checked ~ span {
+  color: rgb(0, 0, 0);
+  background-color: #ffffff;
+}
+
+input[type="radio"]:focus ~ span::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 110%;
+  margin-left: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}

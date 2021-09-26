@@ -1,0 +1,29 @@
+<div>
+  <div role="alert">
+    <p class="error-message" *ngIf="!rates && responseErrorMessage">{{ responseErrorMessage }}</p>
+  </div>
+
+  <p *ngIf="!rates && !responseErrorMessage">Insert the amount that you want to convert in the field above</p>
+
+  <ul *ngIf="rates">
+
+    <li *ngFor="let cc of details | keyvalue:customListOrder">
+
+      <div class="convertion-rates-container">
+        <span class="conversion-rate">
+          1 {{ rates.base }} ➔ {{ cc.value.rate | number:'1.2-4' }} {{ cc.key }}
+        </span>
+        <span class="conversion-rate">
+          1 {{ cc.key }} ➔ {{ 1 / cc.value.rate | number:'1.2-4' }} {{ rates.base }}
+        </span>
+      </div>
+
+      <div class="converted-money">
+        <!-- {{ amount * cc.value.rate | currency:cc.key }} -->
+        {{cc.value.symbol}}{{ amount * cc.value.rate| number:'1.1-2' }}
+      </div>
+    </li>
+
+
+  </ul>
+</div>

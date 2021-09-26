@@ -1,0 +1,72 @@
+label {
+  /*text-transform: uppercase;*/
+  text-align: left;
+  font-size: 14px;
+  position: absolute;
+  padding: 0px 0px;
+  transform: translate(10px, -50%);
+  background-color: rgb(0, 0, 0);
+}
+
+.money {
+  margin-top: 80px;
+  position: relative;
+}
+
+.error-message {
+  color: tomato;
+  padding: 10px;
+  min-height: 60px;
+}
+
+.error-message span {
+  display: block;
+}
+
+/* 3.375rem(54px) @ 20rem(320px) increasing to 13.75rem(220px) @ 120rem(1920px) */
+@media (min-width: 20rem) {
+  .money {
+    font-size: calc(min(2rem + ((1vw - 0.2rem) * 6), 3.5rem));
+    /* Where: * 10.375 = 100 * font_Size_Difference / viewport_Width_Difference */
+  }
+
+  label {
+    font-size: calc(0.75rem + ((1vw - 0.2rem) * 0.25));
+    /* Where: * 0.25 = 100 * font_Size_Difference / viewport_Width_Difference */
+  }
+}
+/* Prevent font scaling beyond this breakpoint */
+/*
+@media (min-width: 120rem) {
+  .money {
+    font-size: 13rem;
+  }
+  label {
+    font-size: 1rem;
+  }
+}
+*/
+input {
+  width: 90vw;
+  max-width: 960px;
+  font-weight: 300;
+  text-align: center;
+  background-color: transparent;
+  color: rgb(255, 255, 255);
+  /* border: none; */
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 16px;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #fff;
+}
+
+input::placeholder {
+  font-size: 32px;
+}
+
+.money-container {
+  text-align: center;
+}
