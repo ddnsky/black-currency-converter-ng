@@ -20,7 +20,7 @@ export class CurrencyListComponent implements OnChanges, OnInit, OnDestroy {
   @Input() originAmount: IBindableValue<ICurrencyValue> | null = null;
 
   details: Details | null = null;
-  amount: number = 1;
+  amount: number = 10;
   private _subscriptions: Subscription[] = [];
 
   ngOnChanges(changes: SimpleChanges) {
@@ -50,12 +50,16 @@ export class CurrencyListComponent implements OnChanges, OnInit, OnDestroy {
   ngOnInit() {
     if (this.originAmount) {
       const coins = this.originAmount.getValue();
-      this.amount = coins.coins;
       this._subscriptions.push(this.originAmount.onChanged.subscribe((x) => { this.onMainAmountChanged(x[0]); }));
+      this.onMainAmountChanged(this.originAmount);
     }
   }
   onMainAmountChanged(sender: IBindableValue<ICurrencyValue>) {
-    this.amount = sender.getValue().coins;
+    let amount = sender.getValue().coins;
+    if (sender.getValue().code != this.rates.base)
+      if (this.rates.rates[sender.getValue().code] > 0)
+        amount /= this.rates.rates[sender.getValue().code];
+    this.amount = amount;
   }
   ngOnDestroy() {
     while (this._subscriptions.length > 0) {
