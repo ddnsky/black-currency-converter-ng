@@ -1,6 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-import { ICurrencies, ICurrency, IExchangeRates } from './../currency';
+import { ICurrencies, ICurrency, IExchangeRates, ICurrencyValue } from './../currency';
+import { IBindableValue } from './../IBindableValue';
 
 type Details = { [key: string]: ICurrency & { index: number; rate: number }; };
 
@@ -10,13 +12,16 @@ type Details = { [key: string]: ICurrency & { index: number; rate: number }; };
   styleUrls: ['./currency-list.component.css']
 })
 
-export class CurrencyListComponent implements OnChanges {
+export class CurrencyListComponent implements OnChanges, OnInit, OnDestroy {
 
-  @Input() responseErrorMessage: string = "responseErrorMessage";
+  //@Input() responseErrorMessage: string = "responseErrorMessage";
   @Input() currencies: ICurrencies = {} as ICurrencies;
   @Input() rates: IExchangeRates = {} as IExchangeRates;
-  @Input() amount: number = 1;
+  @Input() originAmount: IBindableValue<ICurrencyValue> | null = null;
+
   details: Details | null = null;
+  amount: number = 1;
+  private _subscriptions: Subscription[] = [];
 
   ngOnChanges(changes: SimpleChanges) {
     const rates = changes.rates;
@@ -41,5 +46,24 @@ export class CurrencyListComponent implements OnChanges {
   customListOrder(obj1: any, obj2: any): number {
     return obj1.value.index - obj2.value.index;
   }
+
+  ngOnInit() {
+    if (this.originAmount) {
+      const coins = this.originAmount.getValue();
+      this.amount = coins.coins;
+      this._subscriptions.push(this.originAmount.onChanged.subscribe((x) => { this.onMainAmountChanged(x[0]); }));
+    }
+  }
+  onMainAmountChanged(sender: IBindableValue<ICurrencyValue>) {
+    this.amount = sender.getValue().coins;
+  }
+  ngOnDestroy() {
+    while (this._subscriptions.length > 0) {
+      this._subscriptions[this._subscriptions.length - 1].unsubscribe();
+      this._subscriptions.pop();
+    }
+  }
+
+
 
 }

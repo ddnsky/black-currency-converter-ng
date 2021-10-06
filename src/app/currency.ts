@@ -8,9 +8,9 @@ export interface ICurrencies {
 }
 
 export interface ICurrencyValue {
-    get coins(): number;
-    get code(): string;
-    get currency(): ICurrency;
+    readonly coins: number;
+    readonly code: string;
+    readonly currency: ICurrency;
 }
 
 export interface IExchangeRates {

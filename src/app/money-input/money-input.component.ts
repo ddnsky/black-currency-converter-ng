@@ -27,7 +27,7 @@ export class MoneyComponent implements OnInit, OnDestroy {
   @Output()
   errorMessage: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild(NgModel) money?: NgModel;
+  //@ViewChild(NgModel) money?: NgModel;
   //@ViewChild(NgModel) moneyInputModel: NgModel;   
   moneyInput: string = "25"
   currencyPattern = new RegExp(`\[,\]`, 'g');
@@ -46,7 +46,7 @@ export class MoneyComponent implements OnInit, OnDestroy {
   }
 
   onCurrencySelection(newCurrencyCode: string) {
-    console.log(`onCurrencySelection(${newCurrencyCode})`)
+    //console.log(`onCurrencySelection(${newCurrencyCode})`)
     if (this.coins.code != newCurrencyCode) {
       let newCoins = this.coins.coins;
       if (this.converter && this.originAmount) {
@@ -59,7 +59,7 @@ export class MoneyComponent implements OnInit, OnDestroy {
   }
 
   onMainAmountChanged(sender: IBindableValue<ICurrencyValue>, activator: any) {
-    console.log("onMainAmountChanged " + sender.getValue().coins + " " + sender.getValue().code + "  " + (this == activator));
+    //console.log("onMainAmountChanged " + sender.getValue().coins + " " + sender.getValue().code + "  " + (this == activator));
     if (this != activator) {
       let orig = sender.getValue();
       let newCoins = this.converter?.convert(orig, this.coins.code) ?? this.coins.coins;
@@ -76,10 +76,6 @@ export class MoneyComponent implements OnInit, OnDestroy {
       let newOrig = { coins: newCoins, code: orig.code, currency: orig.currency };
       this.originAmount.setValue(newOrig, this);
     }
-    //const newValue = value.replace(this.currencyPattern, '');
-    //if (this.moneyInputModel.valid) {
-    //this.valueSubject.next(Number(newValue));
-    //}
   }
 
   ngOnDestroy() {

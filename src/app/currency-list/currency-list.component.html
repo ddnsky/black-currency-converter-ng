@@ -1,9 +1,11 @@
 <div>
+  <!--
   <div role="alert">
     <p class="error-message" *ngIf="!rates && responseErrorMessage">{{ responseErrorMessage }}</p>
   </div>
+  -->
 
-  <p *ngIf="!rates && !responseErrorMessage">Insert the amount that you want to convert in the field above</p>
+  <p *ngIf="!rates">Insert the amount that you want to convert in the field above</p>
 
   <ul *ngIf="rates">
 

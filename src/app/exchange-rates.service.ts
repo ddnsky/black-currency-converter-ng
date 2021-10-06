@@ -33,9 +33,9 @@ export class ExchangeRateService extends IExchangeRateService {
 
     refresh(): void {
         this.refreshStatus.next(true);
-        //const request = this._requests['api.currencyfreaks.com'];
+        const request = this._requests['api.currencyfreaks.com'];
         //const request = this._requests['www.ecb.europa.eu'];
-        const request = this._requests['cdn.jsdelivr.net'];
+        //const request = this._requests['cdn.jsdelivr.net'];
         //const request = this._requests["test-data"];
 
         this.getExchangeRates(request)
@@ -49,15 +49,13 @@ export class ExchangeRateService extends IExchangeRateService {
                     else {
                         alert("ERROR parsing response");
                     }
+                    this.refreshStatus.next(false);
                 },
                 error => {
                     console.error('There was an error!', error);
                     alert("ERROR " + error.message);
-                },
-                () => {
-                    //alert("COMPLETE!");
                     this.refreshStatus.next(false);
-                }
+                },
             )
     }
 
@@ -67,12 +65,12 @@ export class ExchangeRateService extends IExchangeRateService {
             let date_old = (new Date(this._rates.date)).toLocaleDateString();
             let date_new = (new Date()).toLocaleDateString();
             if (date_old === date_new)
-                return of(this._rates).pipe(delay(1000));
+                return of(this._rates).pipe(delay(2000));
         }
 
         // for testing 
         if (!request.url || !request.responseType) {
-            return of(request.converter(undefined, this._curriencies.currencies)).pipe(delay(1000));
+            return of(request.converter(undefined, this._curriencies.currencies)).pipe(delay(2000));
         }
 
         // headers for CORS

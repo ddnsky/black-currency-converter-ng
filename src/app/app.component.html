@@ -32,7 +32,9 @@
         [responseErrorMessage]="responseErrorMessage">
       </simple-currency-list>
         -->
-      <simple-currency-list *ngIf="!isRefreshing" [rates]="rates" [currencies]="currencies">
+      <simple-currency-list *ngIf="!isRefreshing" [rates]="rates" [currencies]="currencies"
+        [originAmount]="originAmount">
+
       </simple-currency-list>
     </div>
 
